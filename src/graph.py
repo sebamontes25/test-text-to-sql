@@ -5,6 +5,7 @@ from db_manager import DatabaseManager
 from langchain_openai import ChatOpenAI
 from prompt import prompt
 import os
+from langchain_core.messages import AIMessage
 
 
 class GraphState(TypedDict):
@@ -33,13 +34,12 @@ def generate_sql_query(state: GraphState):
 
 def run_query(state: GraphState):
     query = state["messages"][-1].content
-    result = db.raw_query_invoke(query)
-    content = str(result)
+    df = db.raw_query_invoke(query)
+    json_data = df.to_json(orient="records")
 
-    print("====== \n" + "RESULT: " + content)
+    print("====== \n" + "RESULT: " + json_data)
 
-    return {"messages":
-            state["messages"] + [{"role": "assistant", "content": content}]}
+    return {"messages": state["messages"] + [AIMessage(content=json_data)]}
 
 
 builder = StateGraph(GraphState)

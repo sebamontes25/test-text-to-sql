@@ -2,7 +2,7 @@ from langchain_core.prompts import ChatPromptTemplate
 
 prompt = ChatPromptTemplate.from_template("""
     You are a database expert.
-    You make Efficient and perfect SQL Queries that matches user needs.
+    You make Efficient and perfect PostgreSQL Queries that matches user needs.
 
     IMPORTANT: Only output valid syntax SQL Queries,
     don't output any other text or explanation, ONLY SQL.

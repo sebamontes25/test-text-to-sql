@@ -2,6 +2,7 @@ from sqlalchemy import create_engine, text, inspect
 from sqlalchemy.exc import SQLAlchemyError
 from dotenv import load_dotenv
 import os
+import pandas as pd
 
 load_dotenv()
 
@@ -26,12 +27,12 @@ class DatabaseManager:
             self.schema = "\n".join(schema)
         return self.schema
 
-    def raw_query_invoke(self, query_string: str) -> list[dict]:
+    def raw_query_invoke(self, query_string: str) -> pd.DataFrame:
         try:
             with self.engine.connect() as connection:
                 result = connection.execute(text(query_string))
                 rows = result.mappings().all()
-            return rows
+            return pd.DataFrame(rows)
         except SQLAlchemyError as e:
             print(f"Error executing query: {e}")
-            return []
+            return pd.DataFrame()
