@@ -1,3 +1,10 @@
+# test-text-to-sql
+test agent text-SQL
+
+
+### Groq key
+Hay que generar una API key para y almacenarla en .env en GROQ_API_KEY
+
 ### install poetry for environment
 ```bash
 pip install poetry
@@ -10,7 +17,7 @@ poetry install
 
 ### build the DB and pgAdmin hay que tener instalado docker y docker compose
 ```bash
-docker compose up -d  
+docker compose up -d
 ```
 
 ### Seed the DB with random data (definido en src/models.py)
@@ -28,9 +35,8 @@ poetry run python src/main.py --question "what you want to search in the DB"
 poetry run streamlit run src/app.py"
 ```
 
-### en caso de querer correr la API 
+### en caso de querer correr la API
+
 ```bash
 poetry run python src/api_call_app.py"
 ```
-
-
