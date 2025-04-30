@@ -1,10 +1,10 @@
-# graph.py
+# agent_Nodum.py
 import os
 import requests
 import pandas as pd
 from http.cookies import SimpleCookie
 from dotenv import load_dotenv
-
+from langchain_openai import ChatOpenAI
 from langchain.agents import Tool, initialize_agent
 from langchain.llms import OpenAI
 
@@ -68,7 +68,12 @@ tvn_tool = Tool(
 )
 
 # Creamos el agente
-llm = OpenAI(temperature=0)
+llm = ChatOpenAI(
+    model="llama3-70b-8192",
+    base_url="https://api.groq.com/openai/v1",
+    api_key=os.getenv("GROQ_API_KEY")
+)
+
 graph = initialize_agent(
     tools=[tvn_tool],
     llm=llm,

@@ -18,6 +18,9 @@ poetry install
 docker compose up -d
 ```
 
+### Gnerate .env file based on .env.example
+
+
 ### Seed the DB with random data (definido en src/models.py)
 ```bash
 poetry run python src/seed_db.py
