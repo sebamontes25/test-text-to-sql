@@ -1,8 +1,16 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from models import Base, Manager, User, Product, Order, OrderItem
+from models import (
+    Base, 
+    Manager, 
+    User, 
+    Product, 
+    Order, 
+    OrderItem, 
+    HRRecord
+)
 from random import randint, choice, sample
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta, timezone, date
 import os
 from dotenv import load_dotenv
 
@@ -15,6 +23,22 @@ Base.metadata.create_all(engine)
 
 
 Base.metadata.create_all(engine)
+
+def calculate_vacation_days(start_date: date) -> int:
+    """
+    Calculate the number of vacation days accrued since the start date.
+
+    Args:
+        start_date (date): The date when the employee started.
+
+    Returns:
+        int: The number of vacation days accrued.
+    """
+    today = date.today()  # Get today's date
+    # Calculate the total number of months between today and the start date
+    months = (today.year - start_date.year) * 12 + (today.month - start_date.month)
+    # Multiply months by 1.66 to determine accrued vacation days
+    return int(months * 1.66)
 
 with Session(engine) as session:
     # Managers
@@ -50,7 +74,7 @@ with Session(engine) as session:
 
     # Orders
     orders = []
-    for _ in range(20):  # 20 orders total
+    for _ in range(30):  # 20 orders total
         user = choice(users)
         order = Order(user=user, created_at=datetime.now(timezone.utc) -
                       timedelta(days=randint(0, 30)))
@@ -65,6 +89,17 @@ with Session(engine) as session:
             order.items.append(order_item)
         orders.append(order)
 
+    
+    # for user in users:
+    #     # Ejemplo: fecha de ingreso aleatoria en los últimos 2 años
+    #     random_days_ago = randint(0, 365 * 2)
+    #     start = date.today() - timedelta(days=random_days_ago)
+    #     vac = calculate_vacation_days(start)
+
+    #     # Asocia el registro de RH al usuario
+    #     hr = HRRecord(start_date=start, vacation_days=vac)
+    #     user.hr_record = hr
     # Commit all
     session.add_all(managers + users + products + orders)
     session.commit()
+

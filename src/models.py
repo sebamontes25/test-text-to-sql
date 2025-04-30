@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, Float, DateTime, Date
 from sqlalchemy.orm import declarative_base, relationship
 from datetime import datetime
 
@@ -20,7 +20,7 @@ class User(Base):
     manager_id = Column(Integer, ForeignKey("managers.id"))
     manager = relationship("Manager", back_populates="users")
     orders = relationship("Order", back_populates="user")
-
+    hr_record = relationship("HRRecord", back_populates="user", uselist=False)
 
 class Product(Base):
     __tablename__ = "products"
@@ -49,3 +49,13 @@ class OrderItem(Base):
 
     order = relationship("Order", back_populates="items")
     product = relationship("Product", back_populates="order_items")
+
+
+class HRRecord(Base):
+    __tablename__ = "hr_records"
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"), unique=True)
+    start_date = Column(Date, nullable=False)
+    vacation_days = Column(Integer, default=0)
+
+    user = relationship("User", back_populates="hr_record")
