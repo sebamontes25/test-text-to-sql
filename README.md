@@ -40,3 +40,13 @@ poetry run streamlit run src/app.py"
 ```bash
 poetry run python src/api_call_app.py"
 ```
+
+
+# Nodum DataSage
+
+### Run agent basico en consola
+```bash 
+poetry run python test_api/agent_Nodum.py
+```
+ej:
+>>> 'trae 100 registros, filtra los de abril y guarda en abril.csv'
