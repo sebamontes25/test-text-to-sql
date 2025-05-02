@@ -1,9 +1,5 @@
 .env
-<<<<<<< HEAD
 .venv
 *__pycache__
-=======
-*.tmp
-*.log
-src/__pycache__/*
->>>>>>> test_1
+
+test_api/output*
