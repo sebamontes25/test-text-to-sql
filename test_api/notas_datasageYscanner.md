@@ -1,5 +1,5 @@
 
-data sage 
+datasage 
 caso 1: consulta especifica ej: cuanto facturo galana el mes pasada? (galana es un cliente)
 pasos 
 1 - api registros/metadata
@@ -29,3 +29,7 @@ caso 1: como cargo una nota de credito al sistema
             si no estan linkeados -> lleno el formulario 
         output: proceso menu y detalles del flujo BPM asociado a ese formulario
 
+Operator 
+caso 1: como cargo una nota de credito al sistema?
+    proceso menu existe un formulario a llenar?
+    llenar formulario con data de prompt
